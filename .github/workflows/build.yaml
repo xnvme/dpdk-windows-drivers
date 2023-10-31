@@ -1,0 +1,27 @@
+---
+name: build
+
+on:
+  push:
+    branches: [main, next]
+
+defaults:
+  run:
+    shell: cmd
+
+jobs:
+  build-drivers:
+    runs-on: "windows-2022"
+
+    steps:
+    - name: Grab source
+      uses: actions/checkout@v3.6.0
+
+    - name: Install build-requirements
+      run: |
+        cmd.exe /c "echo %cd%"
+        cmd.exe /c "windows\pkgdep.bat"
+    
+    - name: Build
+      run: |
+        cmd.exe /c "windows\build.bat"
