@@ -25,3 +25,13 @@ jobs:
     - name: Build
       run: |
         cmd.exe /c "windows\build.bat"
+    
+    - name: Upload driver binaries
+      uses: actions/upload-artifact@v3.1.1
+      if: always()
+      with:
+        name: dpdk-windows-drivers
+        path: |
+          windows/netuio/x64/Release/netuio/netuio/
+          windows/virt2phys/x64/Release/virt2phys/virt2phys/
+        if-no-files-found: error
